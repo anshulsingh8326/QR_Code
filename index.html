@@ -20,6 +20,15 @@
             box-sizing: border-box;
         }
 
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
         .card {
             background-color: rgba(30, 30, 30, 0.8);
             border-radius: 12px;
@@ -29,13 +38,12 @@
             color: white;
             width: 90%;
             max-width: 600px;
-            margin: 40px auto;
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
 
         .card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-0px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
 
@@ -67,7 +75,7 @@
         button {
             padding: 12px 24px;
             font-size: 16px;
-            background-color: #006d6d;
+            background-color: #059ca7;
             color: #ffffff;
             border: none;
             border-radius: 8px;
@@ -80,22 +88,26 @@
         }
 
         button:hover {
-            background-color: #004d4d;
+            background-color: #07767e;
         }
 
-        footer {
+        button2 {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #1e88e5;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 15px auto;
             width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            background-color: #1c1c1c;
-            color: #d3d3d3;
-            margin-top: auto;
-            box-sizing: border-box;
+            max-width: 250px;
+            display: block;
         }
 
-        footer a {
-            color: #006d6d;
-            text-decoration: none;
+        button2:hover {
+            background-color: #0d47a1;
         }
 
         #qrcode {
@@ -106,10 +118,6 @@
             display: none;
         }
 
-        #qrcode.visible {
-            display: block;
-        }
-
         .buttons-container {
             display: flex;
             flex-direction: column;
@@ -117,11 +125,91 @@
             gap: 15px;
         }
 
+        footer {
+            
+            width: 100%;
+            padding: 25px 20px;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
+            color: #fff;
+            margin-top: auto;
+            box-sizing: border-box;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link i {
+            font-size: 18px;
+            color: #059ca7;
+        }
+
+        .portfolio-link {
+            color: #059ca7;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+            color: #07767e;
+        }
+
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #006d6d, transparent);
+            margin: 10px auto;
+        }
+
         @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
             .card {
                 width: 95%;
                 padding: 15px;
-                margin: 20px auto;
             }
 
             .card.expanded {
@@ -146,6 +234,19 @@
                 width: 200px;
                 height: 200px;
             }
+
+            footer {
+                padding: 20px 15px;
+            }
+
+            .social-links {
+                gap: 10px;
+            }
+
+            .social-link {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
         }
 
         @keyframes gradientBackground {
@@ -155,20 +256,45 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="card" id="mainCard">
-        <h1>QR Code Generator</h1>
-        <input type="text" id="text" placeholder="Enter text or link here">
-        <div class="buttons-container">
-            <button onclick="generateQRCode()">Generate QR Code</button>
-            <canvas id="qrcode"></canvas>
-            <button id="downloadBtn" onclick="downloadQRCode()" style="display: none;">Download QR Code</button>
+    <div class="main-content">
+        <div class="card" id="mainCard">
+            <h1>QR Code Generator</h1>
+            <input type="text" id="text" placeholder="Enter text or link here">
+            <div class="buttons-container">
+                <button onclick="generateQRCode()">Generate QR Code</button>
+                <canvas id="qrcode"></canvas>
+                <button2 id="downloadBtn" onclick="downloadQRCode()" style="display: none;">Download QR Code</button2>
+            </div>
         </div>
     </div>
 
     <footer>
-        Made with ♥ by <a href="https://github.com/AnshulSingh8326">Anshul Singh</a>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://instagram.com/anshulsingh8326" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://twitter.com/anshulsingh8326" target="_blank" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </a>
+                <a href="https://discord.com/users/yoBro8326" target="_blank" class="social-link">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+            </div>
+            <div class="divider"></div>
+            <div>
+                Visit my <a href="https://anshulsingh8326.wixsite.com/portfolio2" target="_blank" class="portfolio-link">Portfolio</a>
+            </div>
+            <div>
+                Made with <span style="color: #ff7e5f;">♥</span> by <a href="https://github.com/AnshulSingh8326" target="_blank" class="portfolio-link">Anshul Singh</a>
+            </div>
+        </div>
     </footer>
 
     <script>
